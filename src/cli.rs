@@ -4,6 +4,7 @@ use thiserror::Error;
 use crate::duckypad::{Color, DuckyPad, DuckyPadError, LedIdx, Pgv, PgvIdx};
 
 #[derive(Parser)]
+#[command(version, about)]
 pub struct Cli {
     #[command(subcommand)]
     command: Command,

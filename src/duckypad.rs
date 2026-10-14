@@ -2,6 +2,7 @@ use std::fmt;
 
 use chrono::{DateTime, Local};
 use hidapi::{HidApi, HidDevice, HidError};
+use log::debug;
 use strum_macros::FromRepr;
 use thiserror::Error;
 
@@ -408,7 +409,7 @@ impl DuckyPad {
     }
 
     fn run_command(&self, msg: &[u8], wait: bool) -> Result<[u8; 64], DuckyPadError> {
-        eprintln!("sending command {:?}", msg);
+        debug!("sending command {:?}", msg);
         self.device.write(msg)?;
         // if we don't wait for the response, return immediately
         // this is exclusively for the reset command, since there's nothing to read
@@ -420,7 +421,7 @@ impl DuckyPad {
 
         self.device.read(&mut resp)?;
 
-        eprintln!("got response {:?}", resp);
+        debug!("got response {:?}", resp);
 
         if resp[2] == 1 {
             return Err(DuckyPadError::PadError);

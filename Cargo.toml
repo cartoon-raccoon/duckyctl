@@ -7,7 +7,9 @@ description = "A CLI app for controlling the duckyPad via HID"
 [dependencies]
 chrono = "0.4"
 clap = { version = "4.6", features = [ "derive" ] }
+env_logger = "0.11"
 hidapi = "2.6"
-strum = { version = "0.28", features = [ "derive" ]}
+log = "0.4"
+strum = { version = "0.28", features = [ "derive" ] }
 strum_macros = "0.28"
 thiserror = "2"
