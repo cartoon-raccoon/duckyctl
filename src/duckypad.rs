@@ -375,7 +375,7 @@ impl DuckyPad {
             let curr_offset = (5 * (idx)) + OFFSET;
 
             // set the pgv index
-            msg[curr_offset] = pgv.idx as u8;
+            msg[curr_offset] = (pgv.idx as u8) + 128;
 
             // set the pgv value
             let pgv_raw =  pgv.value.to_le_bytes();

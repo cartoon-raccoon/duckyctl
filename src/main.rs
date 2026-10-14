@@ -19,7 +19,9 @@ fn main() -> Result<(), DuckyPadError> {
 
     if let Err(e) = args.run(&dp) {
         match e {
-            a @ CliError::InvalidLed(_) | a @ CliError::InvalidColor(_) | a @ CliError::PgvIdxOutOfBounds(_) => {
+            a @ CliError::InvalidLed(_) |
+            a @ CliError::InvalidColor(_) |
+            a @ CliError::PgvIdxOutOfBounds(_) => {
                 Cli::command().error(ErrorKind::InvalidValue, a.to_string()).exit();
             }
             a @ CliError::TooManyPgvs(_) => {
