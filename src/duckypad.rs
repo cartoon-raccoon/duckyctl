@@ -427,6 +427,8 @@ impl DuckyPad {
             return Err(DuckyPadError::PadError);
         } else if resp[2] == 2 {
             return Err(DuckyPadError::PadBusy);
+        } else if resp[2] == 5 {
+            return Err(DuckyPadError::NoSuchProfile);
         } else if resp[2] > 0 {
             panic!("unknown duckyPad status response");
         }
@@ -439,10 +441,14 @@ impl DuckyPad {
 pub enum DuckyPadError {
     #[error("{0}")]
     HidError(#[from] HidError),
-    #[error("DuckyPad is busy")]
+    #[error("duckyPad is busy")]
     PadError,
-    #[error("DuckyPad returned an error")]
+    #[error("duckyPad returned an error")]
     PadBusy,
+    // This error is raised when duckyPad returns status 5. It is not officially documented,
+    // but playing around with the HID commands suggests this is what it is for.
+    #[error("duckyPad error: no such profile exists")]
+    NoSuchProfile,
     #[error("Invalid profile name: {0} is longer than 59 characters")]
     NameTooLong(String),
     #[error("Invalid profile name: {0} is not valid ASCII")]

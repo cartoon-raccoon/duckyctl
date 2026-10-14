@@ -1,4 +1,6 @@
 use clap::{Args, Parser, Subcommand};
+use env_logger::{Builder};
+use log::LevelFilter;
 use thiserror::Error;
 
 use crate::duckypad::{Color, DuckyPad, DuckyPadError, LedIdx, Pgv, PgvIdx};
@@ -8,10 +10,20 @@ use crate::duckypad::{Color, DuckyPad, DuckyPadError, LedIdx, Pgv, PgvIdx};
 pub struct Cli {
     #[command(subcommand)]
     command: Command,
+
+    #[arg(long, short)]
+    verbose: bool,
 }
 
 impl Cli {
     pub fn run(&self, dp: &DuckyPad) -> Result<(), CliError> {
+        Builder::new()
+            .filter_level(if self.verbose { LevelFilter::Debug } else { LevelFilter::Info })
+            .format_file(false)
+            .format_line_number(false)
+            .format_timestamp(None)
+            .init();
+
         match self.command {
             Command::QueryInfo => {
                 let info = dp.query_info()?;

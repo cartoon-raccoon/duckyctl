@@ -1,6 +1,9 @@
 [package]
 name = "duckyctl"
-version = "0.1.0"
+authors = [ "Sam Chan" ]
+repository = "https://github.com/cartoon-raccoon/duckyctl"
+license = "GPL-3.0"
+version = "0.1.1"
 edition = "2024"
 description = "A CLI app for controlling the duckyPad via HID"
 
